@@ -7,4 +7,6 @@ int foo();
 
 static const int ERR_CODE = 42;
 
+void parse_program(char *program);
+
 #endif

@@ -1,7 +1,7 @@
 CC = clang
 CFLAGS = -Wall
 build_dir = out
-binary = $(build_dir)/main
+debug_binary = $(build_dir)/debug
 objects = main.o sed-pcre.o
 sources = lib/main.c lib/src/sed-pcre.c
 test_objects = foo.o
@@ -9,10 +9,11 @@ test_sources = tests/foo.c
 test_binary = $(build_dir)/test
 test_ld_libs = -lm -lrt -lpthread -lcheck -lsubunit
 
-debug: lib/main.c $(build_dir) $(objects)
+$(debug_binary): lib/main.c $(build_dir) $(objects)
 	@echo '> building debug app'
-	$(CC) $(objects) -o $(binary)
+	$(CC) $(objects) -o $(debug_binary)
 
+.PHONY: test
 test: $(test_binary)
 	@echo '> running tests'
 	$(test_binary)
@@ -33,5 +34,6 @@ $(build_dir):
 	@echo "> ensure out $$(build_dir) exists"
 	mkdir -p $(build_dir)
 
+.PHONY: clean
 clean:
 	rm -rf $(binary) $(build_dir) $(objects)
