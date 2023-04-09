@@ -3,10 +3,16 @@
 
 void usage();
 
-int foo();
-
 static const int ERR_CODE = 42;
 
-void parse_program(char *program);
+typedef enum {
+  SUBSTITUTE
+} ProgramFunction;
+
+typedef struct {
+  ProgramFunction func;
+} Program;
+
+Program parse_program(char *contents);
 
 #endif

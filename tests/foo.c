@@ -1,10 +1,10 @@
 #include <check.h>
 #include "../lib/sed-pcre.h"
 
-START_TEST (foo_bar) {
-  ck_assert_int_eq(foo(), 0);
-}
-END_TEST
+START_TEST (parse_program_test) {
+  Program program = parse_program("s/foo/bar/");
+  ck_assert_int_eq(program.func, SUBSTITUTE);
+} END_TEST
 
 Suite *my_suite(void) {
   Suite *s;
@@ -15,7 +15,7 @@ Suite *my_suite(void) {
   // Core test case
   tc_core = tcase_create("Bar test case");
 
-  tcase_add_test(tc_core, foo_bar);
+  tcase_add_test(tc_core, parse_program_test);
   suite_add_tcase(s, tc_core);
 
   return s;

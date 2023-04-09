@@ -18,7 +18,7 @@ endif()
 add_executable(sed_pcre_entrypoint lib/main.c lib/sed-pcre.h)
 
 # would default to STATIC, but we are explicit
-add_library(sed_pcre_library STATIC lib/src/sed-pcre.c lib/sed-pcre.h)
+add_library(sed_pcre_library STATIC lib/src/sed-pcre.c lib/src/program.c lib/sed-pcre.h)
 target_compile_options(sed_pcre_library PRIVATE -Wall -Wextra -Wunreachable-code -Wpedantic)
 # clang specific
 target_compile_options(sed_pcre_library PRIVATE -Wmissing-noreturn)
