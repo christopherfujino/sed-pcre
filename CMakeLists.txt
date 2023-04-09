@@ -9,13 +9,14 @@ project(psed LANGUAGES C)
 # global C_STANDARD = 11;
 set_property(GLOBAL PROPERTY C_STANDARD 11)
 
+# For clangd
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # If macPorts is installed...
 if (EXISTS /opt/local/include)
   include_directories(AFTER /opt/local/include)
   link_directories(/opt/local/lib)
 endif()
-
-add_executable(psed_entrypoint lib/main.c lib/psed.h)
 
 # would default to STATIC, but we are explicit
 add_library(libpsed STATIC lib/src/psed.c lib/src/program.c lib/psed.h)
@@ -23,6 +24,7 @@ target_compile_options(libpsed PRIVATE -Wall -Wextra -Wunreachable-code -Wpedant
 # clang specific
 target_compile_options(libpsed PRIVATE -Wmissing-noreturn)
 
+add_executable(psed_entrypoint lib/main.c lib/psed.h)
 target_link_libraries(psed_entrypoint libpsed)
 
 add_executable(test_entrypoint tests/foo.c lib/psed.h)
