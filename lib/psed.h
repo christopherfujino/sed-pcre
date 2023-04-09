@@ -1,5 +1,5 @@
-#ifndef SED_PCRE_H
-#define SED_PCRE_H
+#ifndef PSED_H
+#define PSED_H
 
 void usage();
 

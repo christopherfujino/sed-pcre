@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 # Everyone says not to do this...
 set(CMAKE_C_COMPILER "clang")
 
-project(sed_pcre LANGUAGES C)
+project(psed LANGUAGES C)
 
 # https://en.wikipedia.org/wiki/C_(programming_language)#C11
 # global C_STANDARD = 11;
@@ -15,18 +15,18 @@ if (EXISTS /opt/local/include)
   link_directories(/opt/local/lib)
 endif()
 
-add_executable(sed_pcre_entrypoint lib/main.c lib/sed-pcre.h)
+add_executable(psed_entrypoint lib/main.c lib/psed.h)
 
 # would default to STATIC, but we are explicit
-add_library(sed_pcre_library STATIC lib/src/sed-pcre.c lib/src/program.c lib/sed-pcre.h)
-target_compile_options(sed_pcre_library PRIVATE -Wall -Wextra -Wunreachable-code -Wpedantic)
+add_library(libpsed STATIC lib/src/psed.c lib/src/program.c lib/psed.h)
+target_compile_options(libpsed PRIVATE -Wall -Wextra -Wunreachable-code -Wpedantic)
 # clang specific
-target_compile_options(sed_pcre_library PRIVATE -Wmissing-noreturn)
+target_compile_options(libpsed PRIVATE -Wmissing-noreturn)
 
-target_link_libraries(sed_pcre_entrypoint sed_pcre_library)
+target_link_libraries(psed_entrypoint libpsed)
 
-add_executable(test_entrypoint tests/foo.c lib/sed-pcre.h)
-target_link_libraries(test_entrypoint sed_pcre_library)
+add_executable(test_entrypoint tests/foo.c lib/psed.h)
+target_link_libraries(test_entrypoint libpsed)
 
 # custom targets do not provide outputs, and are thus always outdated
 add_custom_target(

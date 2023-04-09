@@ -1,5 +1,5 @@
 #include <check.h>
-#include "../lib/sed-pcre.h"
+#include "../lib/psed.h"
 
 START_TEST (parse_program_test) {
   Program program = parse_program("s/foo/bar/");

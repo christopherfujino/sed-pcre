@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "sed-pcre.h"
+#include "psed.h"
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {

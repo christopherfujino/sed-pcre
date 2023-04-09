@@ -1,4 +1,4 @@
-# sed-pcre
+# psed
 
 Like `sed`, but with PCRE.
 
