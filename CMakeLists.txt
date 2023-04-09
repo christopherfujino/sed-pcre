@@ -15,17 +15,17 @@ if (EXISTS /opt/local/include)
   link_directories(/opt/local/lib)
 endif()
 
-add_executable(sed_pcre_entrypoint lib/main.c)
+add_executable(sed_pcre_entrypoint lib/main.c lib/sed-pcre.h)
 
 # would default to STATIC, but we are explicit
-add_library(sed_pcre_library STATIC lib/src/sed-pcre.c)
+add_library(sed_pcre_library STATIC lib/src/sed-pcre.c lib/sed-pcre.h)
 target_compile_options(sed_pcre_library PRIVATE -Wall -Wextra -Wunreachable-code -Wpedantic)
 # clang specific
 target_compile_options(sed_pcre_library PRIVATE -Wmissing-noreturn)
 
 target_link_libraries(sed_pcre_entrypoint sed_pcre_library)
 
-add_executable(test_entrypoint tests/foo.c)
+add_executable(test_entrypoint tests/foo.c lib/sed-pcre.h)
 target_link_libraries(test_entrypoint sed_pcre_library)
 
 # custom targets do not provide outputs, and are thus always outdated
