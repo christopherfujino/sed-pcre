@@ -1,4 +1,4 @@
-#include "../sed-pcre.h"
+#include "../psed.h"
 
 Program parse_program(char *program_string) {
   Program program_val;
