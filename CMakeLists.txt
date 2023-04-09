@@ -9,6 +9,12 @@ project(sed_pcre LANGUAGES C)
 # global C_STANDARD = 11;
 set_property(GLOBAL PROPERTY C_STANDARD 11)
 
+# If macPorts is installed...
+if (EXISTS /opt/local/include)
+  include_directories(AFTER /opt/local/include)
+  link_directories(/opt/local/lib)
+endif()
+
 add_executable(sed_pcre_entrypoint lib/main.c)
 
 # would default to STATIC, but we are explicit
