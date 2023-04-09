@@ -39,4 +39,4 @@ $(build_dir):
 
 .PHONY: clean
 clean:
-	rm -rf $(binary) $(build_dir) $(objects)
+	rm -rf $(binary) $(build_dir) $(objects) $(test_objects)
