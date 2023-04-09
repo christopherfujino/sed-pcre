@@ -24,6 +24,10 @@ target_compile_options(libpsed PRIVATE -Wall -Wextra -Wunreachable-code -Wpedant
 # clang specific
 target_compile_options(libpsed PRIVATE -Wmissing-noreturn)
 
+# link pcre2
+add_subdirectory(../../third_party/pcre2 ${CMAKE_CURRENT_BINARY_DIR}/pcre2)
+target_link_libraries(libpsed PRIVATE pcre2-8-static)
+
 add_executable(psed_entrypoint lib/main.c lib/psed.h)
 target_link_libraries(psed_entrypoint libpsed)
 
