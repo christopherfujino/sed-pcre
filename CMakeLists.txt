@@ -41,7 +41,7 @@ target_link_libraries(test_entrypoint check)
 
 # custom targets do not provide outputs, and are thus always outdated
 add_custom_target(
-  test
+  test # target name
   test_entrypoint # COMMAND
   COMMENT "Executing test suite..." # actually prints message
 )

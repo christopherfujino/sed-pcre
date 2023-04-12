@@ -4,6 +4,8 @@
 START_TEST (parse_program_test) {
   Program program = parse_program("s/foo/bar/");
   ck_assert_int_eq(program.func, SUBSTITUTE);
+  ck_assert_ptr_ne(program.pattern, NULL);
+  ck_assert_ptr_ne(program.replacement, NULL);
 } END_TEST
 
 Suite *my_suite(void) {
