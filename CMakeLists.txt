@@ -31,8 +31,13 @@ target_link_libraries(libpsed PRIVATE pcre2-8-static)
 add_executable(psed_entrypoint lib/main.c lib/psed.h)
 target_link_libraries(psed_entrypoint libpsed)
 
+# test suite
 add_executable(test_entrypoint tests/foo.c lib/psed.h)
 target_link_libraries(test_entrypoint libpsed)
+
+# libcheck
+add_subdirectory(../../third_party/libcheck ${CMAKE_CURRENT_BINARY_DIR}/libcheck)
+target_link_libraries(test_entrypoint check)
 
 # custom targets do not provide outputs, and are thus always outdated
 add_custom_target(
@@ -41,20 +46,14 @@ add_custom_target(
   COMMENT "Executing test suite..." # actually prints message
 )
 
-# This requires check to have been installed as a system library
-target_link_libraries(test_entrypoint check)
-
 if (APPLE)
-  message(STATUS "Building for macOS...")
 # TODO Use the LINUX var once we update to cmake 3.25
 # https://cmake.org/cmake/help/latest/variable/LINUX.html
 elseif (UNIX)
-  message(STATUS "Building for linux...")
   target_link_libraries(test_entrypoint m) # math
   # https://refspecs.linuxfoundation.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/app-librt.html
   target_link_libraries(test_entrypoint rt) # realtime extensions
   target_link_libraries(test_entrypoint pthread)
-  target_link_libraries(test_entrypoint subunit)
 else()
   message(FATAL_ERROR "Unsupported platform!")
 endif()
