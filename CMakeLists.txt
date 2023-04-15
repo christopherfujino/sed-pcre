@@ -45,15 +45,3 @@ add_custom_target(
   test_entrypoint # COMMAND
   COMMENT "Executing test suite..." # actually prints message
 )
-
-if (APPLE)
-# TODO Use the LINUX var once we update to cmake 3.25
-# https://cmake.org/cmake/help/latest/variable/LINUX.html
-elseif (UNIX)
-  target_link_libraries(test_entrypoint m) # math
-  # https://refspecs.linuxfoundation.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/app-librt.html
-  target_link_libraries(test_entrypoint rt) # realtime extensions
-  target_link_libraries(test_entrypoint pthread)
-else()
-  message(FATAL_ERROR "Unsupported platform!")
-endif()
