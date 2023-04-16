@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 cd build
-make test
+ninja test

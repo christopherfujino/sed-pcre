@@ -1,8 +1,12 @@
-#include <check.h>
 #include "../lib/psed.h"
+#include "test.h"
 
 START_TEST (parse_program_test) {
-  Program program = parse_program("s/foo/bar/");
+  OptionalProgram optional_program = parse_program("s/foo/bar/");
+  if (!optional_program.has_program) {
+    ck_abort_msg("Parse error: %s\n", optional_program.val.error);
+  }
+  Program program = optional_program.val.program;
   ck_assert_int_eq(program.func, SUBSTITUTE);
   ck_assert_ptr_ne(program.pattern, NULL);
   ck_assert_ptr_ne(program.replacement, NULL);

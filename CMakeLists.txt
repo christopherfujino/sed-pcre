@@ -28,11 +28,11 @@ target_compile_options(libpsed PRIVATE -Wmissing-noreturn)
 add_subdirectory(../../third_party/pcre2 ${CMAKE_CURRENT_BINARY_DIR}/pcre2)
 target_link_libraries(libpsed PRIVATE pcre2-8-static)
 
-add_executable(psed_entrypoint lib/main.c lib/psed.h)
-target_link_libraries(psed_entrypoint libpsed)
+add_executable(psed lib/main.c lib/psed.h)
+target_link_libraries(psed libpsed)
 
 # test suite
-add_executable(test_entrypoint tests/foo.c lib/psed.h)
+add_executable(test_entrypoint tests/foo.c lib/psed.h tests/test.h)
 target_link_libraries(test_entrypoint libpsed)
 
 # libcheck
