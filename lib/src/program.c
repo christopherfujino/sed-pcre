@@ -8,7 +8,7 @@ typedef enum {
   REPLACEMENT,
 } ParserPhase;
 
-OptionalProgram parse_program(char *program_string) {
+EitherProgram parse_program(char *program_string) {
   Program program = {
       .func = SUBSTITUTE,
       .pattern = NULL,
@@ -24,7 +24,7 @@ OptionalProgram parse_program(char *program_string) {
           program.func = SUBSTITUTE;
           break;
         default:
-          return (OptionalProgram) {
+          return (EitherProgram) {
             .val = {.error = "Whoops"},
             .has_program = false,
           };
@@ -38,7 +38,7 @@ OptionalProgram parse_program(char *program_string) {
     // do interesting things
     program_string++;
   }
-  return (OptionalProgram) {
+  return (EitherProgram) {
     .val = {program},
     .has_program = true,
   };

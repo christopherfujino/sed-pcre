@@ -2,11 +2,11 @@
 #include "test.h"
 
 START_TEST (parse_program_test) {
-  OptionalProgram optional_program = parse_program("s/foo/bar/");
-  if (!optional_program.has_program) {
-    ck_abort_msg("Parse error: %s\n", optional_program.val.error);
+  EitherProgram either_program = parse_program("s/foo/bar/");
+  if (!either_program.has_program) {
+    ck_abort_msg("Parse error: %s\n", either_program.val.error);
   }
-  Program program = optional_program.val.program;
+  Program program = either_program.val.program;
   ck_assert_int_eq(program.func, SUBSTITUTE);
   ck_assert_ptr_ne(program.pattern, NULL);
   ck_assert_ptr_ne(program.replacement, NULL);

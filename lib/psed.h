@@ -29,9 +29,9 @@ typedef union {
 typedef struct {
   ProgramOrError val;
   bool has_program;
-} OptionalProgram;
+} EitherProgram;
 
-OptionalProgram parse_program(char *contents);
+EitherProgram parse_program(char *contents);
 
 void usage(void);
 
