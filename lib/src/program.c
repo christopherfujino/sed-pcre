@@ -1,4 +1,6 @@
 #include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "../psed.h"
 
@@ -14,6 +16,10 @@ EitherProgram parse_program(char *program_string) {
       .pattern = NULL,
       .replacement = NULL,
   };
+  size_t pattern_buffer_len = 20;
+  char *pattern_buffer = malloc(pattern_buffer_len);
+  int pattern_buffer_idx = 0;
+
   ParserPhase phase = FUNC;
   while (*program_string != '\0') {
     char current = *program_string;
@@ -22,11 +28,20 @@ EitherProgram parse_program(char *program_string) {
       switch (current) {
         case 's':
           program.func = SUBSTITUTE;
+          program_string++;
+          if (*program_string != '/') {
+            return (EitherProgram) {
+              .val = {.error = "Expected a '/' char"},
+              .has_error = true,
+            };
+          }
+          program_string++;
+          phase = PATTERN;
           break;
         default:
           return (EitherProgram) {
-            .val = {.error = "Whoops"},
-            .has_program = false,
+            .val = {.error = "Unknown function"},
+            .has_error = true,
           };
       }
       break;
@@ -40,6 +55,6 @@ EitherProgram parse_program(char *program_string) {
   }
   return (EitherProgram) {
     .val = {program},
-    .has_program = true,
+    .has_error = false,
   };
 }

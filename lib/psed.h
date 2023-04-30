@@ -27,8 +27,9 @@ typedef union {
 
 /// Tagged Union
 typedef struct {
+  /// Either a [Program] or an [char*].
   ProgramOrError val;
-  bool has_program;
+  bool has_error;
 } EitherProgram;
 
 EitherProgram parse_program(char *contents);

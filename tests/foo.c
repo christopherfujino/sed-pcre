@@ -3,7 +3,7 @@
 
 START_TEST (parse_program_test) {
   EitherProgram either_program = parse_program("s/foo/bar/");
-  if (!either_program.has_program) {
+  if (either_program.has_error) {
     ck_abort_msg("Parse error: %s\n", either_program.val.error);
   }
   Program program = either_program.val.program;
